@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090c0d">
+  <meta name="description" content="Antharas — независимый проект сервера Lineage II Classic. Без доната, одно окно, честная экономика игроков. Узнай о подготовке и будущем старте.">
+  <title>ANTHARAS — Возвращение к истокам Classic</title>
+  <style>
+    :root { --bg:#090b0c; --panel:#111416; --panel2:#15191a; --white:#f1ede5; --muted:#a6a39d; --dim:#747777; --gold:#e7b875; --gold2:#ca8a43; --line:rgba(231,184,117,.18); --line2:rgba(237,225,204,.12); --font-ui:"Segoe UI",Arial,sans-serif; --font-display:"Palatino Linotype",Georgia,serif; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; background:var(--bg); color:var(--white); font-family:var(--font-ui); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+    ::selection { background:var(--gold); color:#1a150f; }
+    a { color:inherit; text-decoration:none; }
+    button, input { font:inherit; }
+    button { cursor:pointer; }
+    svg { display:block; }
+    .container { width:min(1192px, calc(100% - 92px)); margin-inline:auto; }
+    .eyebrow { display:flex; align-items:center; gap:12px; color:var(--gold); font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.29em; }
+    .eyebrow::before { content:""; width:28px; height:1px; background:var(--gold); }
+    .section-title { font-family:var(--font-display); font-weight:500; letter-spacing:-.035em; font-size:clamp(32px,4.35vw,61px); line-height:1.17; margin:20px 0 22px; }
+    .section-lead { color:var(--muted); line-height:1.9; font-size:15px; max-width:550px; }
+    .gold { color:var(--gold); }
+    .rule { background:linear-gradient(90deg,transparent,var(--line),transparent); height:1px; }
+    .btn { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:11px; min-height:53px; padding:0 23px; border:1px solid transparent; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; transition:transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease; white-space:nowrap; }
+    .btn svg { width:17px; height:17px; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn:focus-visible, a:focus-visible, button:focus-visible, summary:focus-visible { outline:2px solid var(--gold); outline-offset:4px; }
+    .btn-primary { background:linear-gradient(125deg,#f1cc93,#d39c56); color:#171109; box-shadow:0 7px 33px #ca8a4333; }
+    .btn-primary:hover { box-shadow:0 10px 38px #ca8a435e; }
+    .btn-outline { border-color:rgba(240,232,213,.32); background:rgba(12,15,15,.34); color:var(--white); }
+    .btn-outline:hover { border-color:var(--gold); background:rgba(231,184,117,.08); }
+    .btn-soft { border-color:var(--line); background:rgba(231,184,117,.07); color:var(--gold); }
+    .btn-soft:hover { background:rgba(231,184,117,.16); }
+    .overline { display:flex; align-items:center; gap:9px; color:var(--muted); text-transform:uppercase; font-size:10px; font-weight:700; letter-spacing:.16em; }
+    .status-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 16px var(--gold); animation:pulse 2s infinite; }
+    @keyframes pulse { 50%{opacity:.4; box-shadow:0 0 3px var(--gold)} }
+
+    .topbar { background:#131718; border-bottom:1px solid var(--line2); color:#bfb6a5; text-align:center; font-size:10px; letter-spacing:.14em; padding:10px 18px; text-transform:uppercase; }
+    .topbar b { color:var(--gold); font-weight:800; }
+    .header { position:absolute; left:0; right:0; z-index:30; border-bottom:1px solid rgba(238,223,198,.14); background:linear-gradient(180deg,rgba(8,10,11,.84),rgba(8,10,11,.26)); }
+    .nav { display:flex; align-items:center; justify-content:space-between; height:83px; gap:18px; }
+    .brand { display:flex; align-items:center; gap:11px; flex-shrink:0; }
+    .brand-mark { width:37px; height:46px; color:var(--gold); }
+    .brand-name { display:block; font-family:var(--font-display); font-size:24px; letter-spacing:.09em; line-height:1; font-weight:700; }
+    .brand-caption { display:block; font-size:8px; letter-spacing:.31em; color:var(--gold); margin-top:6px; font-weight:700; text-align:center; }
+    .nav-links { display:flex; align-items:center; gap:29px; margin-left:auto; margin-right:17px; }
+    .nav-links a { text-transform:uppercase; letter-spacing:.10em; font-weight:700; font-size:10px; color:#bdbab4; transition:color .2s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-cta { border:1px solid var(--gold); padding:13px 18px; color:var(--gold); font-size:10px; letter-spacing:.1em; text-transform:uppercase; font-weight:800; }
+    .nav-cta:hover { background:#e7b87517; }
+    .menu-toggle { display:none; width:44px; height:44px; justify-content:center; align-items:center; background:transparent; border:1px solid var(--line); color:var(--gold); }
+
+    .hero { position:relative; min-height:780px; height:min(900px,calc(100svh - 35px)); isolation:isolate; display:flex; flex-direction:column; justify-content:center; overflow:hidden; background:#07090a; }
+    .hero::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 66% 42%,rgba(112,61,28,.31),transparent 45%),linear-gradient(90deg,#090b0c 5%,rgba(9,11,12,.96) 23%,rgba(9,11,12,.65) 55%,rgba(9,11,12,.23) 89%),linear-gradient(0deg,#090b0c 0%,transparent 37%,rgba(7,9,10,.23) 100%); z-index:2; pointer-events:none; }
+    .hero-art { position:absolute; z-index:1; width:min(1060px,83vw); height:100%; right:-5%; top:0; opacity:.96; }
+    .hero-grain { position:absolute; z-index:3; inset:0; pointer-events:none; opacity:.14; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.68' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E"); }
+    .hero-content { position:relative; z-index:5; padding-top:96px; padding-bottom:85px; }
+    .hero-tag { display:inline-flex; align-items:center; gap:10px; padding:11px 14px; border:1px solid #e7b8755e; color:#e5c8a0; background:#11110fa8; text-transform:uppercase; font-size:10px; letter-spacing:.18em; font-weight:800; }
+    .hero-tag span { width:5px; height:5px; background:var(--gold); border-radius:50%; }
+    .hero h1 { margin:36px 0 22px; font-family:var(--font-display); font-size:clamp(53px,6.55vw,105px); line-height:1.06; font-weight:600; letter-spacing:-.065em; max-width:850px; text-shadow:0 3px 50px #0008; }
+    .hero h1 em { color:var(--gold); font-style:normal; font-weight:500; }
+    .hero-description { max-width:510px; color:#d2cbc1; font-size:15px; line-height:2; margin:0; text-shadow:0 1px 10px #000; }
+    .hero-actions { display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
+    .hero-stats { margin-top:72px; display:flex; align-items:center; flex-wrap:wrap; gap:35px; }
+    .hero-stat { display:flex; align-items:center; gap:11px; color:#eee8dd; font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:800; }
+    .hero-stat svg { width:21px; height:21px; stroke:var(--gold); }
+    .hero-stat + .hero-stat { padding-left:33px; border-left:1px solid #dcb27b4c; }
+    .hero-edge-label { position:absolute; z-index:5; right:35px; bottom:42px; writing-mode:vertical-rl; color:#e1bb89a6; font-family:var(--font-display); font-size:10px; letter-spacing:.32em; }
+    .hero-scroll { position:absolute; z-index:5; left:calc((100% - min(1192px, 100% - 92px))/2); bottom:26px; text-transform:uppercase; letter-spacing:.2em; font-size:9px; color:#9e9286; display:flex; align-items:center; gap:13px; }
+    .hero-scroll::before { content:""; height:1px; width:34px; background:var(--gold); }
+
+    .values-strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:#111415; }
+    .values-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+    .value { padding:22px 27px; min-height:94px; display:flex; align-items:center; gap:17px; border-right:1px solid var(--line2); }
+    .value:first-child { padding-left:0; }
+    .value:last-child { border-right:0; }
+    .value-number { font-family:var(--font-display); font-size:25px; color:var(--gold); min-width:32px; }
+    .value-title { font-size:11px; text-transform:uppercase; font-weight:800; letter-spacing:.08em; }
+    .value-detail { color:var(--dim); font-size:10px; margin-top:5px; line-height:1.45; }
+
+    .section { padding:120px 0; }
+    .intro-grid { display:grid; grid-template-columns:.88fr 1.12fr; align-items:center; gap:110px; }
+    .intro-symbol { min-height:480px; display:flex; align-items:center; justify-content:center; position:relative; border:1px solid var(--line); background:radial-gradient(circle at 51% 46%,#51392146 0%,transparent 45%),linear-gradient(140deg,#151918,#0b0e0f); overflow:hidden; }
+    .intro-symbol:after { content:"ANTHARAS • CLASSIC • ANTHARAS • CLASSIC"; position:absolute; bottom:29px; left:0; right:0; color:#aa81533d; font:11px var(--font-display); letter-spacing:.24em; text-align:center; }
+    .rune-ring { position:absolute; border-radius:50%; border:1px solid #b4875038; width:370px; height:370px; box-shadow:0 0 0 20px #b4875008,0 0 0 52px #b4875005; }
+    .rune-ring::before { content:""; position:absolute; inset:25px; border-radius:50%; border:1px dashed #a47d4854; }
+    .intro-symbol svg { position:relative; z-index:2; width:250px; height:320px; opacity:.94; filter:drop-shadow(0 6px 35px #d28e3638); }
+    .intro-copy .section-lead { margin-bottom:30px; }
+    .small-note { display:flex; gap:17px; border-left:2px solid var(--gold); padding:8px 0 8px 19px; color:#d3b587; font-size:12px; line-height:1.9; }
+    .features-heading { text-align:center; max-width:780px; margin:0 auto 48px; }
+    .features-heading .eyebrow { justify-content:center; }
+    .features-heading .eyebrow::before { display:none; }
+    .features-heading .section-title { font-size:clamp(33px,4vw,54px); }
+    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; }
+    .feature { background:linear-gradient(160deg,#171b1b,#0e1112); border:1px solid var(--line2); padding:37px 31px 35px; min-height:270px; position:relative; overflow:hidden; transition:border-color .25s,transform .25s; }
+    .feature:hover { transform:translateY(-4px); border-color:#e7b8756e; }
+    .feature::after { content:""; position:absolute; top:0; right:0; border-top:36px solid #d9a5630d; border-left:36px solid transparent; }
+    .feature-icon { width:49px; height:49px; border:1px solid #d5a56e55; display:flex; align-items:center; justify-content:center; color:var(--gold); margin-bottom:32px; }
+    .feature-icon svg { width:25px; height:25px; }
+    .feature h3 { font-family:var(--font-display); font-size:20px; letter-spacing:-.025em; font-weight:500; margin:0 0 12px; }
+    .feature p { color:var(--muted); font-size:12px; line-height:1.95; margin:0; }
+
+    .exchange { position:relative; border-top:1px solid var(--line2); border-bottom:1px solid var(--line2); background:radial-gradient(circle at 88% 55%,#57402338,transparent 33%),#121516; overflow:hidden; padding:105px 0; }
+    .exchange-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:56px; align-items:center; }
+    .exchange-copy .section-title { font-size:clamp(36px,4vw,57px); }
+    .exchange-notice { display:inline-flex; align-items:center; gap:9px; padding:9px 12px; margin:17px 0 20px; color:#e4bb86; background:#c78b3d13; border:1px solid #bb874a47; text-transform:uppercase; font-size:9px; letter-spacing:.16em; font-weight:800; }
+    .exchange-points { margin:24px 0 34px; padding:0; list-style:none; }
+    .exchange-points li { padding:10px 0 10px 22px; color:#c9c4bb; font-size:13px; position:relative; }
+    .exchange-points li:before { content:"✦"; color:var(--gold); position:absolute; left:0; }
+    .exchange-mock { transform:perspective(1200px) rotateY(-5deg) rotateX(2deg); border:1px solid #c7a26c65; background:#0b0e10; box-shadow:0 30px 80px #0009,0 0 70px #b77a2419; padding:0; }
+    .mock-top { height:49px; display:flex; align-items:center; justify-content:space-between; padding:0 18px; border-bottom:1px solid #e6c99d20; background:#15191a; }
+    .mock-top span:first-child { font-family:var(--font-display); font-size:13px; color:#e6c18c; letter-spacing:.13em; }
+    .mock-top span:last-child { color:#8b918f; font-size:9px; letter-spacing:.1em; }
+    .mock-body { padding:21px; }
+    .mock-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:17px; gap:10px; }
+    .mock-header strong { font-family:var(--font-display); font-size:19px; font-weight:500; }
+    .mock-pill { border:1px solid #4e574f; color:#a0a79c; font-size:9px; padding:7px 10px; }
+    .item-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .item-card { border:1px solid #dbc38d20; background:linear-gradient(135deg,#1a1f1e,#121516); min-height:182px; padding:12px 9px; text-align:center; }
+    .item-visual { height:91px; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle,#ad814b30,transparent 68%); }
+    .item-visual svg { width:62px; height:76px; }
+    .item-card h4 { color:#e2d4bd; font-size:10px; font-weight:700; margin:4px 0; }
+    .item-card p { font-size:9px; color:#8a8f8d; margin:4px 0 0; }
+    .mock-bottom { margin-top:15px; padding:12px 13px; border:1px dashed #ad936a5a; color:#a49b8b; font-size:10px; text-align:center; }
+    .mock-watermark { text-align:center; margin-top:15px; color:#bba88b; font-size:9px; text-transform:uppercase; letter-spacing:.2em; }
+
+    .journey { padding:115px 0 120px; }
+    .journey-top { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:52px; }
+    .journey-top .section-title { margin-bottom:0; }
+    .journey-top .section-lead { max-width:340px; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .step { position:relative; padding:30px 28px 32px; border-top:1px solid #e8bb795a; background:linear-gradient(180deg,#141718 0%,#0e1112 100%); min-height:203px; }
+    .step-num { font-family:var(--font-display); color:var(--gold); font-size:36px; line-height:1; margin-bottom:29px; }
+    .step h3 { font-size:14px; margin:0 0 11px; }
+    .step p { color:var(--muted); font-size:12px; line-height:1.85; margin:0; }
+
+    .join-section { position:relative; isolation:isolate; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:100px 0; overflow:hidden; background:#171513; }
+    .join-section::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 52% 100%,#8d4a241f,transparent 60%),repeating-linear-gradient(120deg,transparent 0 100px,#bfa07306 101px 102px); z-index:-1; }
+    .join-center { text-align:center; max-width:740px; margin:auto; }
+    .join-center .eyebrow { justify-content:center; }
+    .join-center .eyebrow::before { display:none; }
+    .join-center .section-title { margin-top:20px; font-size:clamp(37px,5.4vw,69px); }
+    .join-center .section-lead { margin:0 auto; max-width:580px; }
+    .join-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:13px; margin-top:36px; }
+    .join-actions .btn { min-width:218px; }
+    .join-foot { color:#aaa49a; margin-top:22px; font-size:11px; line-height:1.8; }
+
+    .faq-section { padding:95px 0 105px; }
+    .faq-grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:100px; }
+    .faq-grid .section-title { font-size:clamp(34px,3.5vw,48px); }
+    .faq-items { border-top:1px solid var(--line2); }
+    details.faq { border-bottom:1px solid var(--line2); }
+    details.faq summary { padding:21px 28px 21px 0; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:20px; list-style:none; color:#ebe3d8; font-weight:700; font-size:13px; }
+    details.faq summary::-webkit-details-marker { display:none; }
+    details.faq summary:after { content:"+"; color:var(--gold); font-family:var(--font-ui); font-size:22px; font-weight:400; }
+    details.faq[open] summary:after { content:"−"; }
+    details.faq p { padding:0 27px 22px 0; margin:0; color:var(--muted); font-size:12px; line-height:1.9; }
+
+    .footer { padding:44px 0 25px; border-top:1px solid var(--line); background:#080a0b; }
+    .footer-top { display:flex; justify-content:space-between; align-items:center; gap:25px; }
+    .footer-note { color:#8d8c89; font-size:11px; max-width:470px; line-height:1.9; }
+    .footer-bottom { display:flex; justify-content:space-between; gap:20px; border-top:1px solid #fff1; margin-top:34px; padding-top:23px; color:#6d716f; text-transform:uppercase; letter-spacing:.06em; font-size:9px; line-height:1.7; }
+    .footer-bottom a { color:#a2a5a1; }
+    .footer-bottom a:hover { color:var(--gold); }
+
+    .modal-backdrop { position:fixed; inset:0; z-index:100; background:#050607cd; backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:22px; }
+    .modal-backdrop.open { display:flex; }
+    .modal { position:relative; width:min(440px,100%); padding:43px 36px 36px; border:1px solid #cda0648c; background:radial-gradient(circle at top right,#66503328,transparent 50%),#141819; box-shadow:0 30px 90px #000b; text-align:center; }
+    .modal-icon { width:53px; height:53px; margin:0 auto 21px; color:var(--gold); }
+    .modal h2 { font:500 27px var(--font-display); margin:0 0 14px; }
+    .modal p { color:var(--muted); font-size:13px; line-height:1.9; margin:0 0 23px; }
+    .modal .btn { width:100%; }
+    .modal-close { position:absolute; top:10px; right:10px; background:transparent; border:0; color:#c6bba9; font-size:25px; padding:5px 10px; }
+    .modal-close:hover { color:var(--gold); }
+    @media (max-width:1090px) { .container { width:min(1192px,calc(100% - 60px)); } .nav-links { gap:18px; } .hero h1 { font-size:clamp(53px,7vw,87px); } .intro-grid { gap:60px; } .exchange-grid { gap:32px; } .hero-scroll { left:30px; } }
+    @media (max-width:820px) { .nav-links { display:none; } .nav-cta { margin-left:auto; } .menu-toggle { display:flex; } .nav-links.open { display:flex; position:absolute; left:0; right:0; top:83px; flex-direction:column; align-items:stretch; gap:0; background:#101414; margin:0; padding:12px 30px 22px; border-bottom:1px solid var(--line); box-shadow:0 20px 30px #0008; } .nav-links.open a { padding:15px 0; font-size:12px; border-bottom:1px solid #ffffff14; } .hero-art { right:-26%; width:123%; opacity:.75; } .hero::before { background:linear-gradient(90deg,#090b0ce8,#090b0c9e 50%,#090b0c44),linear-gradient(0deg,#090b0c,transparent 45%); } .hero { min-height:730px; height:760px; } .hero h1 { max-width:720px; } .values-grid { grid-template-columns:repeat(2,1fr); } .value { padding:22px; border-bottom:1px solid var(--line2); } .value:nth-child(2) { border-right:0; } .value:nth-child(n+3) { border-bottom:0; } .value:nth-child(3) { padding-left:0; } .intro-grid,.exchange-grid,.faq-grid { grid-template-columns:1fr; gap:45px; } .intro-symbol { min-height:360px; max-width:600px; margin:auto; width:100%; } .features { grid-template-columns:1fr 1fr; } .feature:last-child { grid-column:1/-1; min-height:220px; } .journey-top { display:block; } .journey-top .section-lead { margin-top:20px; } .exchange-mock { transform:none; max-width:660px; width:100%; margin:auto; } .faq-grid { gap:20px; } }
+    @media (max-width:560px) { .container { width:calc(100% - 36px); } .topbar { font-size:8px; letter-spacing:.09em; } .nav { height:69px; } .brand-mark { width:28px; height:36px; } .brand-name { font-size:18px; } .brand-caption { display:block; font-size:6px; } .nav-cta { display:none; } .nav-links.open { top:69px; } .hero { height:auto; min-height:760px; } .hero-art { width:185%; right:-84%; top:0; height:78%; opacity:.59; } .hero::before { background:linear-gradient(90deg,#090b0ce8,#090b0c7b),linear-gradient(0deg,#090b0c 3%,transparent 58%); } .hero-content { padding-top:146px; padding-bottom:126px; } .hero h1 { margin:27px 0 22px; font-size:clamp(45px,11.6vw,68px); letter-spacing:-.055em; } .hero-description { font-size:13px; line-height:1.9; } .hero-tag { font-size:9px; padding:10px; } .hero-actions { gap:9px; margin-top:26px; } .hero-actions .btn { width:100%; } .hero-stats { margin-top:42px; gap:16px; display:grid; grid-template-columns:1fr 1fr; } .hero-stat { font-size:8px; gap:7px; } .hero-stat svg { width:17px; height:17px; } .hero-stat + .hero-stat { padding-left:0; border-left:0; } .hero-edge-label { right:12px; bottom:34px; font-size:7px; } .hero-scroll { left:19px; bottom:28px; font-size:8px; } .values-grid { grid-template-columns:1fr 1fr; } .value,.value:first-child,.value:nth-child(3) { padding:17px 8px; gap:10px; min-height:85px; } .value-number { min-width:23px; font-size:20px; } .value-title { font-size:9px; } .value-detail { font-size:9px; } .section { padding:72px 0; } .intro-symbol { min-height:310px; } .rune-ring { width:275px;height:275px; } .intro-symbol svg { width:195px;height:270px; } .section-title { font-size:36px; } .section-lead { font-size:13px; } .features-heading { margin-bottom:30px; } .features { grid-template-columns:1fr; } .feature,.feature:last-child { grid-column:auto; min-height:218px; padding:27px 25px; } .feature-icon { margin-bottom:22px; } .exchange { padding:70px 0; } .exchange-grid { gap:27px; } .mock-top { padding:0 10px; } .mock-body { padding:10px; } .item-grid { gap:5px; } .item-card { padding:8px 3px; min-height:160px; } .item-visual { height:79px; } .item-visual svg { width:50px; } .item-card h4 { font-size:9px; } .item-card p { font-size:8px; } .mock-header strong { font-size:14px; } .journey { padding:70px 0; } .journey-top { margin-bottom:28px; } .steps { grid-template-columns:1fr; gap:12px; } .step { min-height:auto; padding:23px; } .step-num { margin-bottom:15px; } .join-section { padding:72px 0; } .join-actions { flex-direction:column; } .join-actions .btn { width:100%; } .faq-section { padding:70px 0; } .footer-top,.footer-bottom { flex-direction:column; align-items:flex-start; } .footer-top { gap:15px; } .footer-bottom { gap:12px; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation:none!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <div class="topbar"><b>ANTHARAS PROJECT</b> <span aria-hidden="true">✦</span> Новый мир Classic готовится к открытию <span aria-hidden="true">✦</span> Дата старта будет объявлена</div>
+  <header class="header">
+    <div class="container nav">
+      <a href="#top" class="brand" aria-label="Antharas — на главную">
+        <svg class="brand-mark" viewBox="0 0 60 72" fill="none" aria-hidden="true"><path d="M30 2 53 24 43 24 30 12 17 24 7 24 30 2Z" stroke="currentColor" stroke-width="2"/><path d="m30 19 18 45H36l-6-17-6 17H12l18-45Z" stroke="currentColor" stroke-width="2"/><path d="M18 56h24" stroke="currentColor" stroke-width="2"/><path d="M30 29 22 49h16L30 29Z" fill="currentColor" opacity=".54"/><path d="M3 28 15 30 10 41 4 43M57 28 45 30l5 11 6 2" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span><span class="brand-name">ANTHARAS</span><span class="brand-caption">CLASSIC PROJECT</span></span>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Основная навигация">
+        <a href="#about">О сервере</a>
+        <a href="#features">Принципы</a>
+        <a href="#exchange">Exchange</a>
+        <a href="#roadmap">До открытия</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
+      <a class="nav-cta" href="#join">Быть на старте ↗</a>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Открыть меню"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <svg class="hero-art" viewBox="0 0 1100 930" preserveAspectRatio="xMidYMid slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="skyglow"><stop stop-color="#b96c34" stop-opacity=".8"/><stop offset=".26" stop-color="#8c4528" stop-opacity=".5"/><stop offset=".65" stop-color="#3a2824" stop-opacity=".28"/><stop offset="1" stop-color="#080d0f" stop-opacity="0"/></radialGradient>
+          <radialGradient id="flame"><stop stop-color="#f7b669" stop-opacity=".55"/><stop offset="1" stop-color="#d15d2a" stop-opacity="0"/></radialGradient>
+          <linearGradient id="mont" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#3c3934"/><stop offset="1" stop-color="#0a0d0f"/></linearGradient>
+          <linearGradient id="wing" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#3f3027"/><stop offset=".5" stop-color="#181b1c"/><stop offset="1" stop-color="#070a0b"/></linearGradient>
+          <filter id="blur"><feGaussianBlur stdDeviation="25"/></filter>
+          <filter id="blur2"><feGaussianBlur stdDeviation="4"/></filter>
+        </defs>
+        <rect width="1100" height="930" fill="#090c0f"/>
+        <ellipse cx="697" cy="410" rx="590" ry="540" fill="url(#skyglow)"/>
+        <ellipse cx="755" cy="427" rx="260" ry="260" fill="url(#flame)"/>
+        <circle cx="781" cy="418" r="125" fill="#ec9954" opacity=".07"/><circle cx="781" cy="418" r="156" stroke="#c98147" stroke-opacity=".16"/>
+        <g fill="#dda86b" opacity=".66"><circle cx="468" cy="208" r="1.4"/><circle cx="828" cy="156" r="1.8"/><circle cx="1030" cy="347" r="1.1"/><circle cx="556" cy="490" r="1.6"/><circle cx="921" cy="523" r="1.3"/><circle cx="687" cy="284" r="1.1"/><circle cx="363" cy="550" r="1.2"/><circle cx="710" cy="77" r=".8"/></g>
+        <path d="M0 720 129 591 225 662 323 551 389 618 484 512 549 592 664 448 730 521 808 429 918 530 993 458 1100 587V930H0Z" fill="#1e2425" opacity=".62"/>
+        <path d="M0 810 131 701 234 760 355 663 452 739 600 611 713 672 806 560 922 646 1023 561 1100 631V930H0Z" fill="url(#mont)"/>
+        <g fill="#111718" opacity=".92"><path d="M838 675V505l24-41 24 41v170z"/><path d="M808 675V580l17-37 17 37v95z"/><path d="M884 675V589l16-34 16 34v86z"/><path d="M859 467v-49l-9-19 10-29 10 29-9 19v49z"/><path d="M849 507h24v180h-24z"/><path d="M800 601h122v110H800z"/></g>
+        <g fill="#a16c40" opacity=".15"><path d="M860 511h3v167h-3z"/><path d="M822 590h2v84h-2z"/><path d="M901 600h2v78h-2z"/></g>
+        <!-- Original ornamental dragon silhouette, not a game asset -->
+        <path d="M712 518Q621 414 516 377Q393 330 266 226Q303 335 361 407Q297 390 207 378Q280 477 399 514Q294 497 229 531Q366 577 489 559Q586 595 663 654L776 615Z" fill="url(#wing)" stroke="#7c5638" stroke-opacity=".62" stroke-width="4"/>
+        <path d="M673 544Q612 451 542 407Q459 359 352 295M674 546Q546 476 344 409M671 562Q526 522 338 534" fill="none" stroke="#9c6a43" stroke-opacity=".34" stroke-width="5"/>
+        <path d="M671 615Q628 691 557 720Q484 750 458 699Q436 654 500 629Q460 626 431 659Q400 718 465 768Q563 830 670 735Q720 687 743 645Z" fill="#111718" stroke="#754d33" stroke-opacity=".5" stroke-width="4"/>
+        <path d="M661 628Q614 623 598 592Q577 545 612 498Q633 471 649 443Q664 403 643 366L669 331Q698 356 715 390Q726 413 744 428Q782 449 840 453Q882 455 906 479Q921 493 955 498L981 521L950 530L938 551Q898 570 856 552L838 545Q819 564 811 600L782 690Q770 734 733 749L688 726Q713 687 708 652Z" fill="#101617" stroke="#966a43" stroke-opacity=".8" stroke-width="4"/>
+        <path d="M641 378Q614 340 621 290Q641 318 668 327L684 359M688 366Q695 303 739 270Q722 327 718 391M734 417Q770 386 814 382L789 419" fill="#15191a" stroke="#976a44" stroke-opacity=".75" stroke-width="4"/>
+        <path d="M847 473Q875 468 895 483L920 490Q899 501 884 506L851 500Z" fill="#30332f"/><path d="M862 478Q878 475 891 484L868 490Z" fill="#f4ab56" filter="url(#blur2)"/><path d="M865 480Q878 477 888 483L871 486Z" fill="#ffd083"/>
+        <path d="M883 533Q909 534 937 524" stroke="#b78b56" stroke-opacity=".66" stroke-width="3" fill="none"/><path d="M909 533l8 11 5-16M925 529l7 7 5-13" stroke="#ddbd87" stroke-opacity=".6" stroke-width="2" fill="none"/>
+        <path d="M642 506 655 493 677 514 667 533M643 546l17-10 21 21-10 16M681 587l20-14 18 22-13 19M721 622l23-9 11 24-20 16M747 663l25-5 1 22-21 16" fill="#684f39" stroke="#c08b54" stroke-opacity=".45" stroke-width="2"/>
+        <path d="M615 500Q590 544 612 584M728 398Q751 426 812 438" stroke="#b37f50" stroke-opacity=".45" stroke-width="5" fill="none"/>
+        <ellipse cx="900" cy="527" rx="165" ry="21" fill="#eb7d2c" opacity=".15" filter="url(#blur)"/>
+        <path d="M0 819Q217 756 393 831Q489 775 638 807Q838 739 1100 816V930H0Z" fill="#080b0d"/>
+        <path d="M0 861Q202 818 374 874Q616 831 802 857Q954 827 1100 860V930H0Z" fill="#07090a"/>
+        <g fill="#f4a45b" opacity=".65"><circle cx="722" cy="766" r="2"/><circle cx="800" cy="734" r="1.8"/><circle cx="938" cy="705" r="2"/><circle cx="550" cy="851" r="1.7"/><circle cx="1012" cy="642" r="2"/></g>
+      </svg>
+      <div class="hero-grain"></div>
+      <div class="container hero-content">
+        <div class="hero-tag"><span></span> независимый проект · Lineage II Classic</div>
+        <h1 id="hero-title">КЛАССИКА.<br><em>ЧЕСТНАЯ</em><br>ИГРА.</h1>
+        <p class="hero-description">Мир, в который хочется вернуться. Без доната и платных преимуществ. Одно окно, настоящие союзники, осады и экономика, которую создают сами игроки.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#join">Я буду на старте <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <a class="btn btn-outline" href="#about">Узнать о проекте <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 2 4 6v5c0 5 3.2 8.4 8 11 4.8-2.6 8-6 8-11V6z"/><path d="m8 12 3 3 5-6"/></svg> Никакого доната</div>
+          <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="5" width="16" height="13" rx="1"/><path d="M8 21h8M12 18v3"/></svg> Одно игровое окно</div>
+          <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="m3 6 9-4 9 4v12l-9 4-9-4z"/><path d="m3 6 9 5 9-5M12 11v11"/></svg> Экономика игроков</div>
+        </div>
+      </div>
+      <div class="hero-edge-label">AWAKEN THE CLASSIC · ANTHARAS</div>
+      <a href="#about" class="hero-scroll">Листай вниз</a>
+    </section>
+
+    <div class="values-strip"><div class="container values-grid">
+      <div class="value"><span class="value-number">01</span><div><div class="value-title">Бесплатно</div><div class="value-detail">Без продажи силы</div></div></div>
+      <div class="value"><span class="value-number">02</span><div><div class="value-title">Одно окно</div><div class="value-detail">Фокус на живых группах</div></div></div>
+      <div class="value"><span class="value-number">03</span><div><div class="value-title">Classic</div><div class="value-detail">Атмосфера старой школы</div></div></div>
+      <div class="value"><span class="value-number">04</span><div><div class="value-title">Exchange</div><div class="value-detail">Аукцион в разработке</div></div></div>
+    </div></div>
+
+    <section class="section" id="about" aria-labelledby="about-title"><div class="container intro-grid">
+      <div class="intro-symbol">
+        <div class="rune-ring"></div>
+        <svg viewBox="0 0 220 300" fill="none" aria-hidden="true"><path d="M110 17 189 98 161 101 110 49 59 101 31 98 110 17Z" stroke="#e2b778" stroke-width="2.5"/><path d="m110 66 77 202h-36l-16-47H85l-16 47H33L110 66Z" stroke="#e2b778" stroke-width="3"/><path d="m110 128-18 61h36l-18-61Z" fill="#e2b778" opacity=".5"/><path d="M58 240h104M110 72v39" stroke="#e2b778" stroke-width="1.5"/><path d="M14 110 50 120l-15 33-26 11M206 110l-36 10 15 33 26 11" stroke="#e2b778" stroke-opacity=".7" stroke-width="2"/><path d="m20 184 24-16 9 31-27 12m174-27-24-16-9 31 27 12" stroke="#e2b778" stroke-opacity=".4" stroke-width="2"/><circle cx="110" cy="157" r="103" stroke="#e2b778" stroke-opacity=".2" stroke-dasharray="2 9"/></svg>
+      </div>
+      <div class="intro-copy">
+        <div class="eyebrow">Идея сервера</div>
+        <h2 class="section-title" id="about-title">Вернуться туда,<br>где <span class="gold">каждый выбор</span><br>имел значение.</h2>
+        <p class="section-lead">Antharas — проект для игроков, которые скучают по духу Lineage II Classic: путешествиям, риску, клановым историям и вещам, добытым собственными усилиями.</p>
+        <p class="section-lead">Мы хотим построить мир, в котором решают время, навыки и команда, а не размер кошелька. Подготовка сервера ещё идёт — и именно сейчас можно стать частью будущего сообщества.</p>
+        <div class="small-note">Сейчас собираем первых заинтересованных игроков. Дату открытия, технические детали и правила объявим отдельно после проверки.</div>
+      </div>
+    </div></section>
+
+    <section class="section" id="features" style="padding-top:25px" aria-labelledby="features-title"><div class="container">
+      <div class="features-heading"><div class="eyebrow">Наши принципы</div><h2 class="section-title" id="features-title">Игра, в которой важен <span class="gold">ты</span>.<br>Не твой донат.</h2></div>
+      <div class="features">
+        <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m12 2 8 4v5c0 5-3 8.5-8 11-5-2.5-8-6-8-11V6z"/><path d="M8 12h8M12 8v8"/></svg></div><h3>Без pay-to-win</h3><p>Никаких платных предметов и преимуществ, которые влияют на исход сражения. Сервер задуман полностью бесплатным.</p></article>
+        <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="14" rx="1"/><path d="M8 21h8m-4-3v3M8 9l4-3 4 3v5H8z"/></svg></div><h3>Одно окно</h3><p>Один активный клиент вместо армии окон. Больше смысла в живых группах, профессиях, кланах и взаимопомощи.</p></article>
+        <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7 12 3l9 4v10l-9 4-9-4z"/><path d="m3 7 9 5 9-5M12 12v9M8 15l3-2"/></svg></div><h3>Экономика игроков</h3><p>Добыча, крафт и торговля должны иметь реальную ценность. Antharas Exchange станет удобным дополнением к миру.</p></article>
+      </div>
+    </div></section>
+
+    <section class="exchange" id="exchange" aria-labelledby="exchange-title"><div class="container exchange-grid">
+      <div class="exchange-copy"><div class="eyebrow">Будущий аукцион</div><h2 class="section-title" id="exchange-title">ANTHARAS<br><span class="gold">EXCHANGE</span></h2><div class="exchange-notice"><span class="status-dot"></span> Концепция · в разработке</div><p class="section-lead">Торговая площадка, доступная из Community Board через Alt+B. Ищи лоты, сравнивай предложения и торгуй с другими игроками без лишней рутины.</p><ul class="exchange-points"><li>Удобный поиск и фильтры по лотам</li><li>Рынок, который формируют сами игроки</li><li>Бесплатный доступ ко всем игровым функциям</li></ul><a class="btn btn-soft" href="#join">Следить за разработкой <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+      <div><div class="exchange-mock" aria-label="Иллюстрация будущего аукциона Antharas Exchange"><div class="mock-top"><span>◈ ANTHARAS EXCHANGE</span><span>MARKETPLACE / CONCEPT</span></div><div class="mock-body"><div class="mock-header"><strong>Редкие находки</strong><span class="mock-pill">Все категории ▾</span></div><div class="item-grid">
+        <div class="item-card"><div class="item-visual"><svg viewBox="0 0 72 86" fill="none"><path d="M36 6 42 15 39 54l8 9-5 5-6-7-6 7-5-5 8-9-3-39z" fill="#b3a482" stroke="#f0d4a1" stroke-width="1.6"/><path d="M19 61h34M34 64v13l-5 5h14l-5-5V64" stroke="#dcbd85" stroke-width="5"/><path d="M36 15v35" stroke="#fff1c9" stroke-width="2"/></svg></div><h4>Оружие</h4><p>Клинки и посохи</p></div>
+        <div class="item-card"><div class="item-visual"><svg viewBox="0 0 72 86" fill="none"><path d="M23 13 36 4 49 13 58 30 49 39l-2 34H25l-2-34-9-9z" fill="#706e64" stroke="#dbbb83" stroke-width="2"/><path d="m29 23 7 9 7-9M29 40h14M31 52h10" stroke="#eacb97" stroke-width="2"/><path d="M21 23 12 30l9 10M51 23l9 7-9 10" stroke="#b4a486" stroke-width="2"/></svg></div><h4>Доспехи</h4><p>Снаряжение</p></div>
+        <div class="item-card"><div class="item-visual"><svg viewBox="0 0 72 86" fill="none"><path d="M36 8 56 24v24L36 69 16 48V24z" fill="#80644b" stroke="#e7b876" stroke-width="2"/><path d="M36 16 48 27v18L36 59 24 45V27z" fill="#e5ae5d" opacity=".6"/><path d="M36 16v43M24 27l24 18M48 27 24 45" stroke="#f4cf92" stroke-width="1.5"/></svg></div><h4>Ресурсы</h4><p>Крафт и материалы</p></div>
+      </div><div class="mock-bottom">◈ Здесь будет аукцион. Сейчас показан только дизайн.</div></div></div><div class="mock-watermark">Предварительная визуализация интерфейса</div></div>
+    </div></section>
+
+    <section class="journey" id="roadmap" aria-labelledby="roadmap-title"><div class="container"><div class="journey-top"><div><div class="eyebrow">Путь к открытию</div><h2 class="section-title" id="roadmap-title">Начало <span class="gold">истории</span></h2></div><p class="section-lead">Без выдуманных дат и обещаний. Будем делиться этапами подготовки, когда они действительно будут готовы.</p></div><div class="steps">
+      <div class="step"><div class="step-num">I</div><h3>Собираем сообщество</h3><p>Приглашаем будущих игроков, кланы и конст-пати. Обсуждаем ожидания от честного Classic.</p></div>
+      <div class="step"><div class="step-num">II</div><h3>Тестируем и рассказываем</h3><p>Проверяем механики, экономику и инфраструктуру. Публикуем подтверждённые новости проекта.</p></div>
+      <div class="step"><div class="step-num">III</div><h3>Встречаемся на старте</h3><p>Объявим дату открытия заранее, чтобы каждый успел собрать группу и подготовиться.</p></div>
+    </div></div></section>
+
+    <section class="join-section" id="join" aria-labelledby="join-title"><div class="container join-center"><div class="eyebrow">Будь среди первых</div><h2 class="section-title" id="join-title">Твоя история<br><span class="gold">начинается здесь.</span></h2><p class="section-lead">Присоединяйся к будущему сообществу Antharas. Новости разработки, дата открытия и приглашение на старт появятся в наших каналах.</p><div class="join-actions"><button class="btn btn-primary" type="button" data-link="telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 4.6 18.1 20c-.2 1.1-.9 1.4-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.6.6-1.2.6l.4-5 9.2-8.3c.4-.4-.1-.6-.6-.3L5.5 13.7.8 12.2c-1-.3-1.1-1 .2-1.5L19.3 3.7c.9-.3 2 .2 2.1.9z"/></svg> Telegram · я с вами</button><button class="btn btn-outline" type="button" data-link="max"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="4"/><path d="m8 14 3-4 2 3 3-4m-7 10-2 3"/></svg> Сообщество MAX</button></div><div class="join-foot">Никакой регистрации игрового аккаунта сейчас не требуется.<br>Ссылки на каналы подключим перед публикацией сайта.</div></div></section>
+
+    <section class="faq-section" id="faq" aria-labelledby="faq-title"><div class="container faq-grid"><div><div class="eyebrow">Коротко о важном</div><h2 class="section-title" id="faq-title">Вопросы<br>и <span class="gold">ответы</span></h2><p class="section-lead">Главное, что стоит знать сейчас. Точные игровые настройки объявим после тестов.</p></div><div class="faq-items">
+      <details class="faq"><summary>Сервер действительно будет бесплатным?</summary><p>Да. По концепции проекта игра будет полностью бесплатной, без доната и продажи игровых преимуществ.</p></details>
+      <details class="faq"><summary>Что означает «одно окно»?</summary><p>Мы планируем ограничить одновременную игру одним клиентом. Способ технической проверки будет определён и протестирован до открытия.</p></details>
+      <details class="faq"><summary>Когда откроется Antharas?</summary><p>Дата пока не объявлена. Мы опубликуем её заранее в Telegram и MAX после проверки готовности проекта.</p></details>
+      <details class="faq"><summary>Что такое Antharas Exchange?</summary><p>Это планируемый веб-аукцион для торговли внутриигровыми предметами. Доступ к нему предполагается через Community Board (Alt+B). На этой странице показан концепт, а не действующий аукцион.</p></details>
+      <details class="faq"><summary>Как узнать о старте первым?</summary><p>После подключения Telegram-бота и сообщества MAX ссылки появятся на сайте. Там можно будет добровольно следить за новостями и анонсом открытия.</p></details>
+    </div></div></section>
+  </main>
+  <footer class="footer"><div class="container"><div class="footer-top"><a href="#top" class="brand" aria-label="Вернуться наверх"><svg class="brand-mark" viewBox="0 0 60 72" fill="none" aria-hidden="true"><path d="M30 2 53 24 43 24 30 12 17 24 7 24 30 2Z" stroke="currentColor" stroke-width="2"/><path d="m30 19 18 45H36l-6-17-6 17H12l18-45Z" stroke="currentColor" stroke-width="2"/><path d="M18 56h24" stroke="currentColor" stroke-width="2"/></svg><span><span class="brand-name">ANTHARAS</span><span class="brand-caption">CLASSIC PROJECT</span></span></a><p class="footer-note">Независимый фанатский проект для любителей классической MMORPG. Сайт находится на стадии предварительного прототипа.</p></div><div class="footer-bottom"><span>© <span id="year">2026</span> Antharas Project · Пока только концепт</span><span>Lineage II и связанные обозначения принадлежат их правообладателям. Проект не аффилирован с NCSOFT.</span></div></div></footer>
+  <div class="modal-backdrop" id="link-modal" role="presentation"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description"><button class="modal-close" type="button" aria-label="Закрыть окно" id="modal-close">×</button><svg class="modal-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M32 4 55 16v28L32 59 9 44V16z"/><path d="m9 16 23 15 23-15M32 31v28"/><path d="m23 23 9-6 9 6"/></svg><h2 id="modal-title">Совсем скоро</h2><p id="modal-description">Это демонстрационная версия сайта. Ссылку на Telegram-бота или MAX добавим, когда создадим сообщество.</p><button class="btn btn-primary" type="button" id="modal-ok">Понятно</button></div></div>
+  <script>
+    // Вставьте настоящие ссылки сюда. Например: telegram: 'https://t.me/YourBot?start=landing'
+    const LINKS = { telegram: '', max: '' };
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded','false');
+      menuToggle.setAttribute('aria-label','Открыть меню');
+    }));
+    const modal = document.getElementById('link-modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalOk = document.getElementById('modal-ok');
+    let returnFocus;
+    function closeModal() { modal.classList.remove('open'); document.body.style.overflow=''; if(returnFocus) returnFocus.focus(); }
+    function openModal(platform) { returnFocus=document.activeElement; document.getElementById('modal-description').textContent = `Это пока демонстрационная версия. Ссылку на ${platform==='telegram'?'Telegram-бота':'сообщество MAX'} подключим после создания сообщества.`; modal.classList.add('open'); document.body.style.overflow='hidden'; modalClose.focus(); }
+    document.querySelectorAll('[data-link]').forEach(button => button.addEventListener('click', () => {
+      const key = button.dataset.link;
+      const url = LINKS[key];
+      if(url && /^https:\/\//i.test(url)) { window.open(url,'_blank','noopener,noreferrer'); }
+      else { openModal(key); }
+    }));
+    modalClose.addEventListener('click',closeModal); modalOk.addEventListener('click',closeModal);
+    modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+    window.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
